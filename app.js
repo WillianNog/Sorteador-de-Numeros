@@ -6,18 +6,23 @@ function sortear() {
     let sorteados = [];
     let numero;
 
-    for (let i = 0; i < quantidade; i++) {
-        numero = obterNumeroAleatorio(de, ate);
-        while (sorteados.includes(numero)) {
+    if (quantidade > ((ate - de)+1)) {
+        alert("A quantidade a ser sorteada deve ser menor que a quantidade de opções entre o numero de inicio ate o limite!! Tente Novamente.")
+    } else {
+        for (let i = 0; i < quantidade; i++) {
             numero = obterNumeroAleatorio(de, ate);
+            while (sorteados.includes(numero)) {
+                numero = obterNumeroAleatorio(de, ate);
+            }
+            sorteados.push(numero);
         }
-        sorteados.push(numero);
+    
+        let resultado = document.getElementById('resultado');
+        resultado.innerHTML = `<label class="texto__paragrafo">Números sorteados: 
+            ${sorteados.length === 0 ? 'nenhum até agora' : sorteados}</label>`;
+        alterarStatusBotao();  
     }
-
-    let resultado = document.getElementById('resultado');
-    resultado.innerHTML = `<label class="texto__paragrafo">Números sorteados: 
-        ${sorteados.length === 0 ? 'nenhum até agora' : sorteados}</label>`;
-    alterarStatusBotao();  
+    
 }
 
 function obterNumeroAleatorio(min, max) {
